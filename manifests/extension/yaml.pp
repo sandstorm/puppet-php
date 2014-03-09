@@ -18,7 +18,7 @@ define php::extension::yaml(
 
   $extension = 'yaml'
   $package_name = "yaml-${version}"
-  $url = "http://pecl.php.net/get/APC-${version}.tgz"
+  $url = "http://pecl.php.net/get/yaml-${version}.tgz"
 
   # Final module install path
   $module_path = "${php::config::root}/versions/${php}/modules/${extension}.so"
