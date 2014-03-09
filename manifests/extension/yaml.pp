@@ -24,7 +24,9 @@ define php::extension::yaml(
   # Final module install path
   $module_path = "${php::config::root}/versions/${php}/modules/${extension}.so"
 
-  package { 'libyaml': }
+  package { 'libyaml': 
+    version => '0.1.4'
+  }
   ->
   php_extension { $name:
     extension      => $extension,
@@ -35,6 +37,7 @@ define php::extension::yaml(
     phpenv_root    => $php::config::root,
     php_version    => $php,
     cache_dir      => $php::config::extensioncachedir,
+    configure_params => "--with-yaml=#{@resource[:homebrew_path]}/Cellar/libyaml/0.1.4"
   }
 
   # Add config file once extension is installed
