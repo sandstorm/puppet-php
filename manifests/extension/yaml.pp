@@ -35,7 +35,8 @@ define php::extension::yaml(
     phpenv_root    => $php::config::root,
     php_version    => $php,
     cache_dir      => $php::config::extensioncachedir,
-    configure_params => "--with-yaml=#{@resource[:homebrew_path]}/Cellar/libyaml/0.1.4"
+    # TODO: this is hardcoded to a specific Libyaml version!!
+    configure_params => "--with-yaml=/opt/boxen/homebrew/Cellar/libyaml/0.1.4"
   }
 
   # Add config file once extension is installed
