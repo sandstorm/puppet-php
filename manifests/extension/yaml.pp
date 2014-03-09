@@ -24,9 +24,7 @@ define php::extension::yaml(
   # Final module install path
   $module_path = "${php::config::root}/versions/${php}/modules/${extension}.so"
 
-  package { 'libyaml': 
-    version => '0.1.4'
-  }
+  package { 'libyaml':}
   ->
   php_extension { $name:
     extension      => $extension,
