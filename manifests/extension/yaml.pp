@@ -15,6 +15,7 @@ define php::extension::yaml(
   # Require php version eg. php::5_4_10
   # This will compile, install and set up config dirs if not present
   require join(['php', join(split($php, '[.]'), '_')], '::')
+  
 
   $extension = 'yaml'
   $package_name = "yaml-${version}"
@@ -23,6 +24,8 @@ define php::extension::yaml(
   # Final module install path
   $module_path = "${php::config::root}/versions/${php}/modules/${extension}.so"
 
+  package { 'libyaml': }
+  ->
   php_extension { $name:
     extension      => $extension,
     version        => $version,
