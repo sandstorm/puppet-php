@@ -62,7 +62,6 @@ class php {
   # Resolve dependencies
 
   package { [
-      'freetype',
       'gmp',
       'icu4c',
       'jpeg',
@@ -70,6 +69,18 @@ class php {
       'mcrypt',
     ]:
     provider => homebrew,
+  }
+
+  # Install freetype version 2.4.11 due to conflict with GD
+  # See https://github.com/boxen/puppet-php/issues/25
+
+  homebrew::formula { 'freetypephp':
+    source => 'puppet:///modules/php/brews/freetype.rb',
+    before => Package['boxen/brews/freetypephp'],
+  }
+
+  package { 'boxen/brews/freetypephp':
+    ensure => '2.4.11',
   }
 
   # Need autoconf version less than 2.59 for php 5.3 (ewwwww)
@@ -80,6 +91,18 @@ class php {
 
   package { 'boxen/brews/autoconf213':
     ensure => '2.13-boxen1',
+  }
+
+  # PHP 5.5 drops support for Bison 2.3 which is shipped with OSX
+  # Therefore need a later version, which we'll again sandbox just for this
+
+  homebrew::formula { 'bisonphp26':
+    source => 'puppet:///modules/php/brews/bison26.rb',
+    before => Package['boxen/brews/bisonphp26'],
+  }
+
+  package { 'boxen/brews/bisonphp26':
+    ensure => '2.6.5-boxen1',
   }
 
   # Install dupe version of zlib as tapping homebrew dupes appears to have

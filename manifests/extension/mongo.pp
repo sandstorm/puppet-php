@@ -1,24 +1,24 @@
-# Installs the pecl oauth extension for a specific version of php.
+# Installs the mongo extension for a specific version of php.
 #
 # Usage:
 #
-#     php::extension::oauth { 'oauth for 5.4.10':
+#     php::extension::mongo { 'mongo for 5.4.10':
 #       php     => '5.4.10',
-#       version => '1.2.3'
+#       version => '1.4.5'
 #     }
 #
-define php::extension::oauth(
+define php::extension::mongo(
   $php,
-  $version = '1.2.3'
+  $version = '1.4.5'
 ) {
   require php::config
   # Require php version eg. php::5_4_10
   # This will compile, install and set up config dirs if not present
   require join(['php', join(split($php, '[.]'), '_')], '::')
 
-  $extension = 'oauth'
-  $package_name = "oauth-${version}"
-  $url = "http://pecl.php.net/get/oauth-${version}.tgz"
+  $extension = 'mongo'
+  $package_name = "mongo-${version}"
+  $url = "http://pecl.php.net/get/mongo-${version}.tgz"
 
   # Final module install path
   $module_path = "${php::config::root}/versions/${php}/modules/${extension}.so"
